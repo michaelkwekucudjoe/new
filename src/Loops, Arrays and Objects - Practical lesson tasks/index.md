@@ -1,0 +1,284 @@
+<script>
+    // Create a function that takes 1 argument (the cart array).
+// Create a variable inside the function called totalPrice.
+// Loop through each item in the array and add the value of the item to the total price, remembering to account for the quantity.
+// Return totalPrice.
+// console.log() the returned value.
+
+let shoppingCart = [
+    { name: "bag of pepper", type: "food", quantity: 2, price: 0.65 },
+    { name: "beans", type: "food", quantity: 1, price: 1.60 },
+    { name: "peanuts", type: "food", quantity: 5, price: 2.1 },
+    { name: "can of beer", type: "alcohol", quantity: 10, price: 6.1 },
+    { name: "wine", type: "alcohol", quantity: 4, price: 8.99 },
+    { name: "cow meat", type: "food", quantity: 2, price: 4.99 },
+    { name: "cheese", type: "food", quantity: 1, price: 2.99 },
+    { name: "flowers", type: "home", quantity: 2, price: 1.99 },
+    { name: "cake", type: "food", quantity: 1, price: 4.99 },
+    { name: "spring onions", type: "food", quantity: 3, price: 0.6 }
+];
+
+function getTotal(cart) {
+    let totalprice = 0;
+
+    for (const item of cart) {
+        let itemSubtotal = item.price * item.quantity;
+        totalprice += itemSubtotal;
+    }
+    
+    return totalprice;
+}
+
+//Create a function that takes 1 argument (the array).Create a variable inside the function called “totalPrice”.Loop through each item in the array and add the value of the item to the total price, remember to account for the quantity.If the item has a type of “food” the total price is 20% less.Return the totalPrice Variable. 
+
+let shoppingCart = [
+    { name: "bag of pepper", type: "food", quantity: 2, price: 0.65 },
+    { name: "beans", type: "food", quantity: 1, price: 1.60 },
+    { name: "peanuts", type: "food", quantity: 5, price: 2.1 },
+    { name: "can of beer", type: "alcohol", quantity: 10, price: 6.1 },
+    { name: "wine", type: "alcohol", quantity: 4, price: 8.99 },
+    { name: "cow meat", type: "food", quantity: 2, price: 4.99 },
+    { name: "cheese", type: "food", quantity: 1, price: 2.99 },
+    { name: "flowers", type: "home", quantity: 2, price: 1.99 },
+    { name: "cake", type: "food", quantity: 1, price: 4.99 },
+    { name: "spring onions", type: "food", quantity: 3, price: 0.6 }
+];
+
+const foodDiscount = 20;
+
+function getTotal(cart) {
+  let totalPrice = 0;
+  for (const item of cart) {
+    let itemTotal = item.price * item.quantity;
+    if (item.type === 'food') {
+      const discount = itemTotal * foodDiscount / 100;
+      itemTotal -= discount;
+    }
+    totalPrice += itemTotal;
+  }
+  
+  return totalPrice;
+}
+
+console.log(getTotal(shoppingCart));
+
+//Add 2 extra arguments to the function for “discountAmount” and “type”.Replace the logic that takes off 20% for object.type == “food” for object.type == type and allow the 20% to be the {discountAmount}%.Create logic so that if type == “any” all products have a discount applied.
+
+let shoppingCart = [
+    { name: "bag of pepper", type: "food", quantity: 2, price: 0.65 },
+    { name: "beans", type: "food", quantity: 1, price: 1.60 },
+    { name: "peanuts", type: "food", quantity: 5, price: 2.1 },
+    { name: "can of beer", type: "alcohol", quantity: 10, price: 6.1 },
+    { name: "wine", type: "alcohol", quantity: 4, price: 8.99 },
+    { name: "cow meat", type: "food", quantity: 2, price: 4.99 },
+    { name: "cheese", type: "food", quantity: 1, price: 2.99 },
+    { name: "flowers", type: "home", quantity: 2, price: 1.99 },
+    { name: "cake", type: "food", quantity: 1, price: 4.99 },
+    { name: "spring onions", type: "food", quantity: 3, price: 0.6 }
+];
+
+function getTotal(cart, discountAmount, type) {
+  let totalPrice = 0;
+  for (const item of cart) {
+    let itemSubtotal = item.price * item.quantity;
+    
+    if (type === 'any') {
+      itemSubtotal = itemSubtotal * ((100 - discountAmount) /100);
+    } else if (item.type === type){
+       itemSubtotal = itemSubtotal * ((100 - discountAmount) /100);
+    }
+    
+    totalPrice += itemSubtotal;
+  }
+  return totalPrice;
+}
+
+console.log(getTotal(shoppingCart, 20, 'any'));
+
+//We are going to be using an array of objects provided as a simple shopping cart example.We need to be able to work out which items cost between 2 price points. So for example, we need the cart to be returned by which products cost more than £2 but less than £5.
+
+let shoppingCart = [
+    { name: "bag of pepper", type: "food", quantity: 2, price: 0.65 },
+    { name: "beans", type: "food", quantity: 1, price: 1.60 },
+    { name: "peanuts", type: "food", quantity: 5, price: 2.1 },
+    { name: "can of beer", type: "alcohol", quantity: 10, price: 6.1 },
+    { name: "wine", type: "alcohol", quantity: 4, price: 8.99 },
+    { name: "cow meat", type: "food", quantity: 2, price: 4.99 },
+    { name: "cheese", type: "food", quantity: 1, price: 2.99 },
+    { name: "flowers", type: "home", quantity: 2, price: 1.99 },
+    { name: "cake", type: "food", quantity: 1, price: 4.99 },
+    { name: "spring onions", type: "food", quantity: 3, price: 0.6 }
+];
+
+const food_discount = 20;
+// An array of items with unit prices in the given range.
+function getItemsByPrice(cart, lowPrice, highPrice) {
+  const items = [];
+  for (const item of cart) {
+    if (lowPrice <= item.price && item.price <= highPrice) {
+      items.push(item);
+    }
+  }
+  return items;
+}
+
+// Get items from the cart with unit prices between 2 and 4.
+console.log(getItemsByPrice(shoppingCart, 2, 4));
+
+//Add an additional argument to the function “quantity” this is going to be a boolean.If quantity == true then account for the total price with the quantity included as being between lowPrice and highPrice.
+
+let shoppingCart = [
+    { name: "bag of pepper", type: "food", quantity: 2, price: 0.65 },
+    { name: "beans", type: "food", quantity: 1, price: 1.60 },
+    { name: "peanuts", type: "food", quantity: 5, price: 2.1 },
+    { name: "can of beer", type: "alcohol", quantity: 10, price: 6.1 },
+    { name: "wine", type: "alcohol", quantity: 4, price: 8.99 },
+    { name: "cow meat", type: "food", quantity: 2, price: 4.99 },
+    { name: "cheese", type: "food", quantity: 1, price: 2.99 },
+    { name: "flowers", type: "home", quantity: 2, price: 1.99 },
+    { name: "cake", type: "food", quantity: 1, price: 4.99 },
+    { name: "spring onions", type: "food", quantity: 3, price: 0.6 }
+];
+
+const food_discount = 20;
+
+function getItemsByPrice(cart, lowPrice, highPrice, quantity) {
+  const items = [];
+  for (const item of cart) {
+    let price = item.price;
+    if (quantity) {
+      price *= item.quantity;
+    }
+    if (lowPrice <= price && price <= highPrice) {
+      items.push(item);
+    }
+  }
+  return items;
+}
+
+// Get items from the cart with total prices between 3 and 5.
+console.log(getItemsByPrice(shoppingCart, 3, 5, true));
+
+
+//The function will be able to return the mode, median or mean of the numbers.Create an array of random numbers.Create a function that takes 1 argument (the array) which can work out the mean of the numbers provided.Create a function which can work out the mode of the numbers provided.Create a function which can work out the median of the numbers provided. 
+
+const randomnumbers = [1, 5, 1, 2, 5, 2, 5];
+
+function median(numbers) {
+    // Get the numbers array, sort in numerical order
+    numbers.sort(function (a, b) {
+        return a - b;
+    });
+
+    // Work out the middle number
+    // get the size of the array, divde by 2, and round    Math.round() , minus one to account for 0-index
+    const middleNumberPosition = Math.round(numbers.length / 2) - 1
+
+    // get the middle number from the array
+    // return the middle number
+    return numbers[middleNumberPosition];
+}
+
+function mode(numbers) {
+  // Create an object to keep track of how many times we've encountered each number.
+  const counts = {};
+  for (const number of numbers) {
+    if (!counts[number]) {
+      // This is the first time we've encountered this number, set the count to 1.
+      counts[number] = 1;
+    }
+    else {
+      // There's already a count for this number: increase it by 1.
+      counts[number] += 1;
+    }
+  }
+  
+  // We have an object with the counts for each number. We now need to find which number has the
+  // highest count. Loop through each the counts, and keep track of the highest number that's
+  // been seen in maxCount, and its index in mostCommon.
+  let mostCommon;
+  let maxCount = 0;
+  for (const entry of Object.entries(counts)) {
+    const number = entry[0];
+    const count = entry[1];
+    if (count > maxCount) {
+      mostCommon = number;
+      maxCount = count;
+    }
+  }
+  
+  // Object keys are always strings, so for consistency turn it back into a number.
+  return Number(mostCommon);
+}
+
+
+const numbers = [1, 5, 1, 2, 5, 2, 5];
+
+console.log(`The median is ${median(numbers)}`);
+console.log(`The mode is ${mode(numbers)}`);
+
+// Create an array of random numbers
+const numbers = [1, 5, 1, 2, 5, 2, 5];
+
+
+// Function to calculate the mean of the numbers
+function calculateMean(array) {
+  let total = 0;
+  for (let i = 0; i < array.length; i++) {
+    total += array[i];
+  }
+  return total / array.length;
+}
+
+// Function to calculate the mode of the numbers
+function calculateMode(array) {
+  let mode = [];
+  let count = {};
+  let maxCount = 0;
+  for (let i = 0; i < array.length; i++) {
+    let num = array[i];
+    count[num] = (count[num] || 0) + 1;
+    if (count[num] > maxCount) {
+      maxCount = count[num];
+    }
+  }
+  for (let num in count) {
+    if (count[num] === maxCount) {
+      mode.push(Number(num));
+    }
+  }
+  return mode;
+}
+
+// Function to calculate the median of the numbers
+function calculateMedian(array) {
+  let sortedArray = array.slice().sort((a, b) => a - b);
+  let middleIndex = Math.floor(sortedArray.length / 2);
+
+  if (sortedArray.length % 2 === 0) {
+    return (sortedArray[middleIndex - 1] + sortedArray[middleIndex]) / 2;
+  } else {
+    return sortedArray[middleIndex];
+  }
+}
+
+// Function to return the required number based on the type
+function getResult(array, type) {
+  switch (type) {
+    case "mean":
+      return calculateMean(array);
+    case "mode":
+      return calculateMode(array);
+    case "median":
+      return calculateMedian(array);
+    default:
+      return "Invalid type";
+  }
+}
+
+console.log(getResult(numbers, "mean")); 
+console.log(getResult(numbers, "mode")); 
+console.log(getResult(numbers, "median")); 
+
+</script>
+
