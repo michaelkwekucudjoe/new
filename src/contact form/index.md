@@ -1,0 +1,68 @@
+<style>
+    body {
+    background-color: aqua;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+
+}
+
+.container {
+    background-color: aliceblue;
+    padding: 20px 40px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px 0px black;
+    min-width: 60vw;
+}
+
+label {
+    margin-bottom: 4px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+
+}
+
+input {
+    height: 40px;
+    font-size: 18px;
+}
+
+input textarea {
+    resize: none;
+    height: 200px;
+    font-size: 18px;
+}
+</style>
+
+<body>
+    <H1>Please fill in the form</H1>
+    <div class="container">
+        <form name="contact" method="POST" netlify>
+            <div class="input">
+                <label for="First name ">First name</label>
+                <input type="text" id="First name" name="First name" placeholder="Your First name"  required>
+            </div>
+            <div class="input">
+                <label for="Surname ">Surname</label>
+                <input type="text" id="Surname" name="Surname" placeholder="Your Surname" required>
+            </div>
+            <div class="input">
+                <label for="Email ">Email</label>
+                <input type="Email" id="Email" name="Email" placeholder="Email" required>
+
+            </div>
+            <div class="input">
+                <label for="Message">Message</label>
+                <textarea name="Message" id="Message" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+   
+</body>
