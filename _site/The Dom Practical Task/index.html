@@ -1,0 +1,147 @@
+<style>
+    h1{
+  text-align: center;
+}
+
+.form-preamble {
+  text-align: center;
+}
+
+form {
+  width: 55em;
+  margin: 1em auto;
+}
+
+fieldset {
+  margin-bottom: 1em;
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  margin-left: 1em;
+}
+
+
+#summary {
+  min-height: 2em;
+}
+
+small {
+  margin-top: 1em;
+  display: block;
+  font-size: medium;
+}
+
+</style>
+<!--
+  Four animals:
+  - pandas
+  - tigers
+  - lions
+  - giraffes
+-->
+<h1>Animal Filters</h1>
+<p class="form-preamble">
+  You can filter the images by selecting a type. You can also enter keywords into the search box.
+</p>
+<form id="filters">
+  <fieldset>
+    <legend>Type</legend>
+      <input type="radio" name="animalType" id="panda" value="panda">
+      <label for="panda">Panda</label>
+      <input type="radio" name="animalType" id="tiger" value="tiger">
+      <label for="tiger">Tiger</label>
+      <input type="radio" name="animalType" id="lion" value="lion">
+      <label for="lion">Lion</label>
+      <input type="radio" name="animalType" id="giraffe" value="giraffe">
+      <label for="giraffe">Giraffe</label>
+      <input type="radio" name="animalType" id="all" value="all" checked>
+      <label for="all">Show All</label>
+  </fieldset>
+  <label for="search">Search</label>
+  <input type="search" name="search" id="search">
+</form>
+<div id="summary"></div>
+<div id="results">
+<img animal="panda" class="imageFilter" src="https://images.pexels.com/photos/4444036/pexels-photo-4444036.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="panda" class="imageFilter" src="https://images.pexels.com/photos/4741847/pexels-photo-4741847.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="lion" class="imageFilter" alt="yawning" src="https://images.pexels.com/photos/2265248/pexels-photo-2265248.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="giraffe" class="imageFilter" src="https://images.pexels.com/photos/5745126/pexels-photo-5745126.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="giraffe" class="imageFilter" src="https://images.pexels.com/photos/1054699/pexels-photo-1054699.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="lion" class="imageFilter" alt="yawning" src="https://images.pexels.com/photos/3498323/pexels-photo-3498323.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="panda" class="imageFilter" src="https://images.pexels.com/photos/6939449/pexels-photo-6939449.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="tiger" class="imageFilter" alt="yawning" src="https://images.pexels.com/photos/40553/tiger-yawning-snow-adult-40553.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="giraffe" class="imageFilter" src="https://images.pexels.com/photos/4577496/pexels-photo-4577496.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="tiger" class="imageFilter" src="https://images.pexels.com/photos/2668607/pexels-photo-2668607.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="tiger" class="imageFilter" src="https://images.pexels.com/photos/1926335/pexels-photo-1926335.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="lion" class="imageFilter" src="https://images.pexels.com/photos/46795/lion-big-cat-predator-safari-46795.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="tiger" class="imageFilter" src="https://images.pexels.com/photos/831275/pexels-photo-831275.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="lion" class="imageFilter" src="https://images.pexels.com/photos/1320412/pexels-photo-1320412.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="giraffe" class="imageFilter" src="https://images.pexels.com/photos/4577498/pexels-photo-4577498.jpeg?auto=compress&cs=tinysrgb&w=300">
+<img animal="panda" class="imageFilter" src="https://images.pexels.com/photos/4741848/pexels-photo-4741848.jpeg?auto=compress&cs=tinysrgb&w=300">
+</div>
+<p><small>Photos provided by <a href="https://www.pexels.com">Pexels</a>.</small></p>
+<script>
+    const images = document.getElementsByClassName('imageFilter');
+const animalRadios = document.getElementsByName('animalType');
+const search = document.getElementById('search');
+const form = document.getElementById('filters');
+let selectedAnimal = 'all';
+
+
+shouldShowImage = (image) => {
+  if (selectedAnimal !== 'all' && selectedAnimal !== image.getAttribute('animal')) {
+    return false;
+  }
+  
+  if (!search.value) {
+    return true;
+  }
+  
+  return image.alt.toLowerCase().includes(search.value.toLowerCase());
+}
+
+filterAnimals = () => {
+  for (const image of images) {
+    if (shouldShowImage(image)) {
+      image.classList.remove('hidden');
+    }
+    else {
+      image.classList.add('hidden');
+    }
+  }  
+}
+
+updateSummary = () => {
+  // This is getting the label of the select radio button
+  const filterLabel = form.querySelector(`label[for=${selectedAnimal}]`).textContent;
+  // checking if there is text in the search input
+	const searchTitle = search.value ? 
+	`Showing animals that match the filter "${filterLabel}" and the search "${search.value}".` : 
+	`Showing animals that match the filter "${filterLabel}".`
+  
+	document.getElementById('summary').innerHTML = searchTitle
+}
+
+updateSummary()
+
+update = () => {
+  selectedAnimal = document.querySelector('input[name="animalType"]:checked').value;
+  filterAnimals();
+	updateSummary()
+}
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+});
+
+for (const animalRadio of animalRadios) {
+  animalRadio.addEventListener('change', update);
+}
+
+search.addEventListener('keyup', update);
+
+</script>
