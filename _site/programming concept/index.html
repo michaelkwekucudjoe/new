@@ -1,0 +1,39 @@
+<h1> making a program to calculate a tip </h1>
+<ol>
+<li>
+<p>Create variables for the pre-tip total and the tip percentage.</p>
+</li>
+<li>
+<p>Calculate the new total.</p>
+</li>
+<li>
+<p>Output a sentence to the page - something like:
+Your total bill, with tip, is £35.45.(Use toFixed() to round the output to 2 decimal places). Display the tip amount in the output as well</p>
+</li>
+<li>
+<p>Extend the Tip program.</p>
+</li>
+<li>
+<p>Create variables for the pre-tip total and the tip percentage.</p>
+</li>
+<li>
+<p>Calculate the new total and Output a sentence to the page - something like:
+“Your total bill, with tip, is £35.45”. (Extension: round the figure to 2 DP and display the tip amount.)</p>
+</li>
+</ol>
+<script>
+    const preTip = 178.39;
+const tipPercent = 27;
+const tip = tipPercent * preTip / 100;
+const total = preTip - tip;
+
+document.write(`Your total bill, with  tip is £${total.toFixed(2)}`);
+
+const firstTip = 178.39;
+const Percent = 27;
+const extra = Percent * firstTip / 100;
+const sum = firstTip - extra;
+
+document.write(`"Your total bill, with  tip is £${total.toFixed(2)}"`);
+
+</script>
